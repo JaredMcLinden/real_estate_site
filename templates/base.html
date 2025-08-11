@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Jared McLinden | Real Estate{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+    <nav class="topnav">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='coldwell_logo.jpg') }}" alt="Coldwell Banker" class="nav-logo">
+            <span class="nav-brand">Jared McLinden</span>
+        </div>
+        <div class="nav-center">
+            <a href="{{ url_for('home_evaluation') }}" class="cta">Home Evaluation</a>
+        </div>
+        <div class="nav-right">
+            <a href="{{ url_for('home') }}" class="nav-link">Home</a>
+            <div class="contact-icons">
+                <a href="tel:705-783-8455" aria-label="Call Jared"><i class="fas fa-phone"></i></a>
+                <a href="mailto:jared@jaredmclinden.com" aria-label="Email Jared"><i class="fas fa-envelope"></i></a>
+                <a href="https://www.linkedin.com/in/jaredmclinden" target="_blank" aria-label="LinkedIn"><i
+                        class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/jaredmclinden1" target="_blank" aria-label="Instagram"><i
+                        class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 Jared McLinden Real Estate</p>
+    </footer>
+
+    <script>
+        (function () {
+            const newUrl = {{ (new_url  if new_url  else None)| tojson
+        }};
+        const editUrl = {{ (edit_url if edit_url else None)| tojson }};
+
+        function isTyping(e) {
+            const t = e.target;
+            return t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable);
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (isTyping(e)) return;
+            const k = (e.key || '').toLowerCase();
+            const isMac = navigator.platform.toUpperCase().includes('MAC');
+
+            if (newUrl && e.shiftKey && k === 'a') {
+                e.preventDefault();
+                window.location.href = newUrl;
+                return;
+            }
+
+            const editCombo = (e.shiftKey && k === 'e') || (editUrl && ((isMac && e.metaKey && k === 'e') || (!isMac && e.ctrlKey && k === 'e')));
+            if (editUrl && editCombo) {
+                e.preventDefault();
+                window.location.href = editUrl;
+            }
+        });
+  }) ();
+    </script>
+
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>

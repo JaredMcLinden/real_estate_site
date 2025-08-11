@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Free Home Evaluation | Jared McLinden{% endblock %}
+{% block content %}
+<section class="container" style="max-width:900px;margin:3rem auto;">
+    <h1 style="font-size:2rem;margin-bottom:1rem;">Free Home Evaluation</h1>
+    <p style="color:#555;margin-bottom:1.5rem;">
+        Share a few details below. After submitting, you’ll book a time directly on my calendar.
+    </p>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div
+        style="background:#ffe5e5;border:1px solid #f5bcbc;padding:.75rem 1rem;margin-bottom:1rem;border-radius:.5rem;">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="post" style="display:grid;gap:1rem;">
+        <div style="display:grid;gap:.5rem;">
+            <label>Full name*</label>
+            <input name="full_name" value="{{ form.full_name or '' }}" required autocomplete="name"
+                style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">
+        </div>
+
+        <div style="display:grid;gap:.5rem;">
+            <label>Email*</label>
+            <input type="email" name="email" value="{{ form.email or '' }}" required autocomplete="email"
+                style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">
+        </div>
+
+        <div style="display:grid;gap:.5rem;">
+            <label>Phone</label>
+            <input name="phone" value="{{ form.phone or '' }}" autocomplete="tel"
+                style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">
+        </div>
+
+        <div style="display:grid;gap:.5rem;">
+            <label>Property address*</label>
+            <input name="address" value="{{ form.address or '' }}" required autocomplete="street-address"
+                style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">
+        </div>
+
+        <div style="display:grid;gap:.5rem;">
+            <label>Property type</label>
+            <select name="property_type" style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">
+                <option value="">Select…</option>
+                <option>Detached</option>
+                <option>Semi-detached</option>
+                <option>Townhouse</option>
+                <option>Condo</option>
+                <option>Cottage/Recreational</option>
+                <option>Land</option>
+                <option>Other</option>
+            </select>
+        </div>
+
+        <div style="display:grid;gap:.5rem;">
+            <label>Ideal timeframe</label>
+            <select name="timeframe" style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">
+                <option value="">Select…</option>
+                <option>ASAP</option>
+                <option>30-60 days</option>
+                <option>60-90 days</option>
+                <option>3–6 months</option>
+                <option>Just exploring</option>
+            </select>
+        </div>
+
+        <div style="display:grid;gap:.5rem;">
+            <label>Anything else I should know?</label>
+            <textarea name="notes" rows="4"
+                style="padding:.75rem;border:1px solid #ccc;border-radius:.5rem;">{{ form.notes or '' }}</textarea>
+        </div>
+
+        <button type="submit"
+            style="padding:.9rem 1.2rem;border:none;border-radius:.6rem;background:#1f2937;color:white;font-weight:600;cursor:pointer;">
+            Get my evaluation → then pick a time
+        </button>
+    </form>
+</section>
+{% endblock %}

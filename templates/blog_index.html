@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Blog | Jared McLinden{% endblock %}
+{% block content %}
+<section class="section" style="max-width:1000px;margin:2rem auto;padding:0 1rem;">
+    <h1 style="margin:.5rem 0 1rem;">Market Insights & Guides</h1>
+    {% if posts|length == 0 %}
+    <p>No posts yet.</p>
+    {% endif %}
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;">
+        {% for p in posts %}
+        <article class="card" style="overflow:hidden;">
+            {% if p.cover_url %}
+            <a href="{{ url_for('blog_post', slug=p.slug) }}"><img src="{{ p.cover_url }}" alt=""
+                    style="width:100%;height:160px;object-fit:cover;"></a>
+            {% endif %}
+            <div style="padding:1rem;">
+                <h3 style="margin:.25rem 0;"><a href="{{ url_for('blog_post', slug=p.slug) }}"
+                        style="text-decoration:none;color:#111827;">{{ p.title }}</a></h3>
+                <p style="color:#6b7280;margin:.25rem 0 0;">{{ p.summary or '' }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

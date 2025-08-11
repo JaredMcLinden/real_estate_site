@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Home | Jared McLinden{% endblock %}
+
+{% block content %}
+<section class="about">
+    <img src="{{ url_for('static', filename='jared.jpg') }}" alt="Jared McLinden" class="portrait">
+    <div class="bio">
+        <h1 style="margin:0 0 .5rem;">Jared McLinden</h1>
+        <p>I’m a dedicated real estate professional helping you navigate Ontario’s market with clarity, trust, and
+            expertise.</p>
+    </div>
+</section>
+
+{% if latest_posts %}
+<section class="section latest-articles">
+    <div class="section-header">
+        <h2>Latest Articles</h2>
+        <a href="{{ url_for('blog_index') }}" class="nav-link">All posts →</a>
+    </div>
+
+    <div class="articles-grid">
+        {% for p in latest_posts %}
+        <article class="card">
+            {% if p.cover_url %}
+            <a href="{{ url_for('blog_post', slug=p.slug) }}">
+                <img src="{{ p.cover_url }}" alt="{{ p.title }}">
+            </a>
+            {% endif %}
+            <div class="card-content">
+                <h3>
+                    <a href="{{ url_for('blog_post', slug=p.slug) }}">{{ p.title }}</a>
+                </h3>
+                <p>{{ p.summary or '' }}</p>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% else %}
+<section class="section latest-articles">
+    <h2>Latest Articles</h2>
+    <p>No blog posts yet—check back soon.</p>
+</section>
+{% endif %}
+{% endblock %}

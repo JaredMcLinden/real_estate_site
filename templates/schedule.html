@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Book Your Home Evaluation | Jared McLinden{% endblock %}
+{% block content %}
+<section class="section">
+    <div class="card">
+        <header class="card-head">
+            <h1>Book Your Home Evaluation</h1>
+            <p>I’ll review recent sales and walk your home to outline the best path to maximize value.</p>
+        </header>
+
+        <div id="sched-loader" class="skeleton"></div>
+
+        <div class="cal-wrap">
+            <div class="calendly-inline-widget" data-url="{{ calendly_embed_url }}"></div>
+        </div>
+
+        <noscript>
+            <p>If the scheduler doesn’t load, <a href="{{ calendly_embed_url }}">open it in a new tab</a>.</p>
+        </noscript>
+
+        <footer class="fineprint">
+            <small>By booking, you agree to be contacted about your evaluation. No spam. Cancel/reschedule anytime via
+                the confirmation email.</small>
+        </footer>
+    </div>
+</section>
+
+{% block scripts %}
+<script src="https://assets.calendly.com/assets/external/widget.js" async
+    onload="document.getElementById('sched-loader')?.remove()"></script>
+{% endblock %}
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}{{ 'New Post' if mode=='new' else 'Edit Post' }} | Admin{% endblock %}
+{% block content %}
+<section class="section" style="max-width:900px;margin:2rem auto;padding:0 1rem;">
+    <h1>{{ 'New Post' if mode=='new' else 'Edit Post' }}</h1>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div style="background:#ffe5e5;border:1px solid #f5bcbc;padding:.75rem 1rem;margin:.75rem 0;border-radius:.5rem;">
+        {{ messages[0] }}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+    <form method="post" style="display:grid;gap:1rem;">
+        <input name="title" placeholder="Title" value="{{ form.title or '' }}" required
+            style="padding:.75rem;border:1px solid #d1d5db;border-radius:.5rem;">
+        <input name="summary" placeholder="One‑sentence summary (optional)" value="{{ form.summary or '' }}"
+            style="padding:.75rem;border:1px solid #d1d5db;border-radius:.5rem;">
+        <input name="cover_url" placeholder="Cover image URL (optional)" value="{{ form.cover_url or '' }}"
+            style="padding:.75rem;border:1px solid #d1d5db;border-radius:.5rem;">
+        <textarea name="content_md" rows="16" placeholder="Write in Markdown…" required
+            style="padding:.75rem;border:1px solid #d1d5db;border-radius:.5rem;">{{ form.content_md or '' }}</textarea>
+
+        <label style="display:flex;align-items:center;gap:.5rem;">
+            <input type="checkbox" name="published" {% if (form.published or 0)==1 %}checked{% endif %}> Published
+        </label>
+
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;">
+            <input type="password" name="password" placeholder="Admin password" required
+                style="padding:.75rem;border:1px solid #d1d5db;border-radius:.5rem;">
+            <button class="cta" type="submit">Save</button>
+        </div>
+    </form>
+</section>
+{% endblock %}

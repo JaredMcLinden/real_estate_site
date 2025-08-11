@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | Jared McLinden{% endblock %}
+{% block content %}
+<article class="section" style="max-width:860px;margin:2rem auto;padding:0 1rem;">
+    {% if post.cover_url %}
+    <img src="{{ post.cover_url }}" alt="" style="width:100%;border-radius:12px;margin-bottom:1rem;">
+    {% endif %}
+    <h1 style="margin:.5rem 0 1rem;">{{ post.title }}</h1>
+    <div class="prose">{{ post.content_html | safe }}</div>
+    <p style="color:#9ca3af;margin-top:1rem;">Published {{ post.created_at[:10] }}</p>
+</article>
+{% endblock %}
